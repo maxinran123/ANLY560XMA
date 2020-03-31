@@ -1,0 +1,75 @@
+---
+title: "ANLY 505 - Data Simulation in R"
+subtitle: "Week 1"
+author: "Xinran Ma"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Directions
+
+The objective of this assignment is to introduce you to  R and R markdown and to complete some basic data simulation exercises.
+
+Please include all code needed to perform the tasks.  This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+To submit this homework you will create the document in Rstudio, using the knitr package (button included in Rstudio) and then submit the document to your [Rpubs](http://rpubs.com/) account.  Once uploaded you will submit the link to that document on Canvas. Please make sure that this link is hyperlinked and that I can see the visualization and the code required to create it.
+
+## Questions
+
+1. Simulate data for 30 draws from a normal distribution where the means and standard deviations vary among three distributions.
+
+```{r uniform distribution-3 distributions, echo=TRUE}
+# place the code to simulate the data here
+set.seed(1)
+rnorm(30, mean = c(0,5,10), sd = c(1,5,10))
+
+```
+
+2. Simulate 2 continuous variables (normal distribution) (n=20) and plot the relationship between them
+
+```{r 2 variable plot, echo=TRUE}
+# place the code to simulate the data here
+set.seed(1)
+x = rnorm(20, mean = 0, sd = 1)
+set.seed(2)
+y = rnorm(20, mean = 0, sd = 1)
+plot(y ~ x)
+```
+
+3. Simulate 3 variables (x1, x2 and y).  x1 and x2 should be drawn from a uniform distribution and y should be drawn from a normal distribution. Fit a multiple linear regression.
+
+```{r}
+# place the code to simulate the data here
+set.seed(1)
+y = rnorm(100, mean = 0, sd = 1)
+x1 = runif(100, min = 5, max = 10)
+x2 = runif(100, min = 100, max = 200)
+model1 <- lm(y ~ x1 + x2)
+plot(model1, which = c(1,1))
+summary(model1)
+```
+
+4. Simulate 3 letters repeating each letter twice, 2 times.
+
+```{r}
+# place the code to simulate the data here
+rep(letters[1:3], each = 2, times = 2)
+```
+
+5. Create a list of 6 datasets (n = 30) each with 3 groups, 2 factors and two quantitative response variables. Use the replicate function.
+
+````{r}
+# place the code to simulate the data here
+data1=replicate(n=6, expr = data.frame(
+  group = rep(letters[1:3],each=10),
+  factor = rep(LETTERS[1:2],length.out=30),
+  response1 = rnorm(30, mean =0, sd=1),
+  response2 = rnorm(30, mean = 2, sd =5)),
+  simplify = FALSE)
+str(data1)
+```
+
